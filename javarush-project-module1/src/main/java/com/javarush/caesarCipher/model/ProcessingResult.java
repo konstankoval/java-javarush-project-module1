@@ -2,10 +2,10 @@ package com.javarush.caesarCipher.model;
 
 public class ProcessingResult {
 
-    private final boolean success;
-    private final String message;
-    private final String inputPreview;
-    private final String outputPreview;
+    private final boolean success;          // успешна ли операция
+    private final String message;           // сообщение для пользователя
+    private final String inputPreview;      // что на входе
+    private final String outputPreview;     // что на выходе
 
     public ProcessingResult(boolean success, String message, String inputPreview, String outputPreview) {
         this.success = success;
