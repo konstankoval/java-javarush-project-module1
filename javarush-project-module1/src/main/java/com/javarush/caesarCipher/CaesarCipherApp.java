@@ -100,7 +100,7 @@ public class CaesarCipherApp {
             String inputFile = getInputFilePath();
             String outputFile = getOutputFilePath();
 
-            String context = fileService.readFile();
+            String context = fileService.readFile(inputFile);
             ProcessingResult result = ceasarCoder.encodeText(context, codeForEncode);
             fileService.writeFile(getOutputFromResult(result), outputFile);
 
@@ -111,11 +111,9 @@ public class CaesarCipherApp {
 
     }
 
-    private static int getCodeForEncode() {
+    private int getCodeForEncode() {
         System.out.println("Введите ключ для шифрования сообщения (число от 0 до 76):");
-        Scanner codeScanner = new Scanner(System.in);
-        int codeForEncode = codeScanner.nextInt();
-        return codeForEncode;
+        return scanner.nextInt();
     }
 
     private void processDecodeFile() {
@@ -130,18 +128,14 @@ public class CaesarCipherApp {
 
     private String getInputFilePath(){
         // запрос пути исходного файла
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Введите путь к файлу с сообщением, которое необходимо закодировать");
-        String inputFilePath = scanner.nextLine();
-        return inputFilePath;
+        return scanner.nextLine();
     }
 
     private String getOutputFilePath(){
         // запрос пути для записи результата
-        Scanner scanner = new Scanner(System.in);
         System.out.println("Введите путь к файлу, куда нужно записать закодированное сообщение");
-        String outputFilePath = scanner.nextLine();
-        return outputFilePath;
+        return scanner.nextLine();
     }
 
     private void displaySuccessResult(ProcessingResult result, String inputFile, String outputFile){
@@ -158,6 +152,7 @@ public class CaesarCipherApp {
 
     private String getOutputFromResult(ProcessingResult result) {
 
+        return "";
     }
 
 
