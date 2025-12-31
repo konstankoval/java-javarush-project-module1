@@ -82,11 +82,6 @@ public class CaesarCipherApp {
         System.out.print("Выберите действие: ");
     }
 
-    // НУЖНО ДОБАВИТЬ КЛЮЧ-ЧИСЛО ДЛЯ КОДИРОВАНИЯ СООБЩЕНИЯ
-    private void ceasarOffsetKey() {
-
-    }
-
     private void processEncodeFile() {
         // todo: обработка кодирования файла
         // 1. Получить пути файлов и шифр
@@ -96,7 +91,7 @@ public class CaesarCipherApp {
         // 5. Сообщить об успешном результате
         System.out.println("Кодирование файла:");
         try {
-            int codeForEncode = getCodeForEncode();
+            int codeForEncode = ceasarOffsetKey();
             String inputFile = getInputFilePath();
             String outputFile = getOutputFilePath();
 
@@ -111,7 +106,7 @@ public class CaesarCipherApp {
 
     }
 
-    private int getCodeForEncode() {
+    private int ceasarOffsetKey() {
         System.out.println("Введите ключ для шифрования сообщения (число от 0 до 76):");
         return scanner.nextInt();
     }
