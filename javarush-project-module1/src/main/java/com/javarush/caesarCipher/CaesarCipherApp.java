@@ -89,18 +89,19 @@ public class CaesarCipherApp {
 
     private void processEncodeFile() {
         // todo: обработка кодирования файла
-        // 1. Получить пути файлов
+        // 1. Получить пути файлов и шифр
         // 2. Прочитать исходный файл
         // 3. Закодировать текст
         // 4. Записать результат
         // 5. Сообщить об успешном результате
         System.out.println("Кодирование файла:");
         try {
+            int codeForEncode = getCodeForEncode();
             String inputFile = getInputFilePath();
             String outputFile = getOutputFilePath();
 
             String context = fileService.readFile();
-            ProcessingResult result = ceasarCoder.encodeText(context);
+            ProcessingResult result = ceasarCoder.encodeText(context, codeForEncode);
             fileService.writeFile(getOutputFromResult(result), outputFile);
 
             displaySuccessResult(result, inputFile, outputFile);
@@ -108,6 +109,13 @@ public class CaesarCipherApp {
             displayError(e.getMessage());
         }
 
+    }
+
+    private static int getCodeForEncode() {
+        System.out.println("Введите ключ для шифрования сообщения (число от 0 до 76):");
+        Scanner codeScanner = new Scanner(System.in);
+        int codeForEncode = codeScanner.nextInt();
+        return codeForEncode;
     }
 
     private void processDecodeFile() {
@@ -122,12 +130,18 @@ public class CaesarCipherApp {
 
     private String getInputFilePath(){
         // запрос пути исходного файла
-        return null;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите путь к файлу с сообщением, которое необходимо закодировать");
+        String inputFilePath = scanner.nextLine();
+        return inputFilePath;
     }
 
     private String getOutputFilePath(){
         // запрос пути для записи результата
-        return null;
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите путь к файлу, куда нужно записать закодированное сообщение");
+        String outputFilePath = scanner.nextLine();
+        return outputFilePath;
     }
 
     private void displaySuccessResult(ProcessingResult result, String inputFile, String outputFile){

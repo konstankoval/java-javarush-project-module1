@@ -4,6 +4,9 @@ import com.javarush.caesarCipher.exception.CeasarException;
 import com.javarush.caesarCipher.model.ProcessingResult;
 import com.javarush.caesarCipher.service.ValidationService;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CeasarCoder {
 
     private final ValidationService validationService;
@@ -14,7 +17,7 @@ public class CeasarCoder {
         this.validationService = validationService;
     }
 
-    public ProcessingResult encodeText (String text) throws CeasarException {
+    public ProcessingResult encodeText (String text, int codeForEncode) throws CeasarException {
         // todo: кодирование текста в шифр Цезаря
         // 1. Валидировать входной текст
         validationService.validateTextForEncoding(text);
@@ -25,16 +28,21 @@ public class CeasarCoder {
 
         // 3. Пройти по всем символам
         // 4. Найти новый символ для каждого символа
-        for (int i = 0; i < upperText.length(); i++) {
-            char currentChar = upperText.charAt(i);
-            result.append(Alphabet.TEXT_TO_CEASAR.get(currentChar)); // ВОЗМОЖНО НУЖНО ИЗМЕНИТЬ!
+        char[] charArray = upperText.toCharArray();
+        List<Integer> intArray = new ArrayList<>(text.length());
 
-            // 5. Собрать результат с пробелами (ВОЗМОЖНО НУЖНО ИЗМЕНИТЬ!)
-            // Каждый символ разделяется пробелом. Нужно для азбуки Морзе
-            if (i < upperText.length() - 1) {
-                result.append(" ");
-            }
+        for (char element : charArray){
+            if(((Alphabet.CEASAR_TO_TEXT.get(element))+codeForEncode) > Alphabet.CEASAR_TO_TEXT.size()){
+                intArray.add(((Alphabet.CEASAR_TO_TEXT.get(element))+codeForEncode) - (Alphabet.CEASAR_TO_TEXT.size()));
+            } else intArray.add((Alphabet.CEASAR_TO_TEXT.get(element))+codeForEncode);
         }
+
+        for (int element : intArray){
+            result.append(Alphabet.TEXT_TO_CEASAR.get(element));
+        }
+
+
+
 
         String encoded = result.toString();
 
@@ -43,7 +51,7 @@ public class CeasarCoder {
 
     }
 
-    public ProcessingResult decodeText (String ceasarCode) throws CeasarException {
+    public ProcessingResult decodeText (String ceasarCode, int codeForDecode) throws CeasarException {
         // todo: декодирование кода Цезаря в текст
         // 1. Валидировать код Цезаря
         validationService.validateCeasarCode(ceasarCode);
