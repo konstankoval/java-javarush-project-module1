@@ -20,7 +20,7 @@ public class CeasarCoder {
     public ProcessingResult encodeText (String text, int codeForEncode) throws CeasarException {
         // todo: кодирование текста в шифр Цезаря
         // 1. Валидировать входной текст
-        validationService.validateTextForEncoding(text);
+        validationService.validateTextForEncoding(text, codeForEncode);
 
         // 2. Приветси в верхнему регистру
         String upperText = text.toUpperCase();
@@ -54,7 +54,7 @@ public class CeasarCoder {
     public ProcessingResult decodeText (String ceasarCode, int codeForDecode) throws CeasarException {
         // todo: декодирование кода Цезаря в текст
         // 1. Валидировать код Цезаря
-        validationService.validateCeasarCode(ceasarCode);
+        validationService.validateCeasarCode(ceasarCode, codeForDecode);
 
         // 2. Разбить на отдельные символы
         StringBuilder result = new StringBuilder();

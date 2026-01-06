@@ -1,18 +1,14 @@
 package com.javarush.caesarCipher.exception;
 
-// Проверяемые исключения
+// Непроверяемые исключения
 
-public class CeasarException extends Exception {
-    public CeasarException(String message) {
+public class CeasarRunTimeException extends RuntimeException {
+    public CeasarRunTimeException(String message) {
         // todo: вызвать конструктор родителя с сообщением
-        System.out.println("\nВнимание! Ошибка!");
-        System.out.println(message);
     }
 
-    public CeasarException(String message, Throwable cause) {
+    public CeasarRunTimeException(String message, Throwable cause) {
         // todo: вызвать конструктор родителя с сообщением и причиной
-        System.out.println("\nВнимание! Ошибка!");
-        System.out.println(message + cause);
     }
 }
 

@@ -2,6 +2,8 @@ package com.javarush.caesarCipher.service;
 
 import com.javarush.caesarCipher.exception.CeasarException;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
@@ -10,7 +12,6 @@ import java.nio.file.StandardOpenOption;
 public class FileService {
 
     public String readFile(String filePath) throws CeasarException {
-        // todo: чтение файла с валидацией
 
         // 1. Преобразовать путь в Path
         try{Path path = Path.of(filePath);
@@ -25,8 +26,18 @@ public class FileService {
                 throw new CeasarException("Нет прав на чтение файла " + filePath);
             }
 
-            // todo: Проверить содержимое файла
-
+//            // Проверка на пустоту
+//            if (Files.size(path) == 0L) {
+//                throw new CeasarException("Файл пуст " + filePath);
+//            }
+//
+//            // Проверка на содержимое файла
+//            try (BufferedReader reader = new BufferedReader(new FileReader(path.toFile()))) {
+//                String content = reader.readLine();
+//                if (!content.matches("(?s)^[a-zA-Z0-9\\s\\p{Punct}]+$")) {
+//                    throw new CeasarException("Файл содержит неверные символы " + filePath);
+//                }
+//            }
 
             return Files.readString(path);
 
@@ -37,7 +48,7 @@ public class FileService {
     }
 
     public void writeFile(String content, String filePath) throws CeasarException {
-        // todo: запись файла с созданием директории
+
         try{
             // 1. Преобразовать путь
             Path path = Path.of(filePath);
