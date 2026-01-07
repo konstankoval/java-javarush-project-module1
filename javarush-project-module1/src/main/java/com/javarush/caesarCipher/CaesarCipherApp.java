@@ -1,9 +1,11 @@
 package com.javarush.caesarCipher;
 
+import com.javarush.caesarCipher.core.Alphabet;
 import com.javarush.caesarCipher.core.CeasarCoder;
 import com.javarush.caesarCipher.exception.CeasarException;
 import com.javarush.caesarCipher.model.ProcessingResult;
 import com.javarush.caesarCipher.service.FileService;
+import com.javarush.caesarCipher.service.ValidationService;
 
 import java.sql.SQLOutput;
 import java.util.Scanner;
@@ -25,13 +27,14 @@ public class CaesarCipherApp {
         this.scanner = scanner;
     }
 
-
     static void main() {
-        CaesarCipherApp app = new CaesarCipherApp();
+        run();
     }
 
-    public void run(){
-        // todo: реализовать главный цикл приложения
+    void run() {
+
+        CaesarCipherApp app = new CaesarCipherApp(ceasarCoder, fileService, scanner);
+
         // 1. Вывести приветстиве
         printWelcomeMessage();
 
@@ -63,8 +66,6 @@ public class CaesarCipherApp {
                     System.out.println("Неверный выбор. Попробуйте снова.");
             }
         }
-
-
     }
 
     private void printWelcomeMessage() {
@@ -107,16 +108,33 @@ public class CaesarCipherApp {
     }
 
     private int ceasarOffsetKey() {
-        System.out.println("Введите ключ для шифрования сообщения (число от 0 до 76):");
+        System.out.print("Введите ключ для шифрования сообщения (число от 0 до 76): ");
         return scanner.nextInt();
     }
 
     private void processDecodeFile() {
         // todo: обработка декодирования файла
-        // 1. Получить пути файлов
-        // 2. Прочитать файл
-        // 3. Декодировать код
-        // 4. Сообщить об успешном результате
+
+        System.out.println("Декодирование файла:");
+        try {
+            // 1. Получить пути файлов и код для дешифровки
+            int codeForDecode = ceasarOffsetKey();
+            String inputFile = getInputFilePath();
+            String outputFile = getOutputFilePath();
+
+            // 2. Прочитать файл
+            String context = fileService.readFile(inputFile);
+
+            // 3. Декодировать код
+            ProcessingResult result = ceasarCoder.decodeText(context, codeForDecode);
+            fileService.writeFile(getOutputFromResult(result), outputFile);
+
+            // 4. Сообщить об успешном результате
+            displaySuccessResult(result, inputFile, outputFile);
+        } catch (CeasarException e) {
+            displayError(e.getMessage());
+        }
+
     }
 
     // проектирование методов
@@ -143,11 +161,18 @@ public class CaesarCipherApp {
 
     private void showAlphabet(){
         // todo: вывод алфавита по запросу
+        System.out.println("Список символов, подходящих для кодирования:");
+        for (int i = 0; i < Alphabet.CEASAR_TO_TEXT.size(); i++) {
+            for (int j = 0; j < 10; j++) {
+                System.out.print(" [" + Alphabet.CEASAR_TO_TEXT.get(i) + "] ");
+            }
+        }
     }
 
     private String getOutputFromResult(ProcessingResult result) {
+        String outputResult = String.valueOf(result);
 
-        return "";
+        return outputResult;
     }
 
 

@@ -73,9 +73,9 @@ public class CeasarCoder {
             result.append(Alphabet.TEXT_TO_CEASAR.get(element));
         }
 
-            // 6. Вернуть ProcessingResult
-            String decoded = result.toString();
-            return new ProcessingResult(true, "Код успешно декодирован", getPreview(ceasarCode), getPreview(decoded));
+        // 6. Вернуть ProcessingResult
+        String decoded = result.toString();
+        return new ProcessingResult(true, "Код успешно декодирован", getPreview(ceasarCode), getPreview(decoded));
 
     }
 

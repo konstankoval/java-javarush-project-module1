@@ -18,9 +18,7 @@ public class ProcessingResult {
         return success;
     }
 
-    public String getMessage() {
-        return message;
-    }
+    public String getMessage() {return message; }
 
     public String getInputPreview() {
         return inputPreview;
