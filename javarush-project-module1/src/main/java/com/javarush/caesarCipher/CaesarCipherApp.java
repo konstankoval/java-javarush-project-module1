@@ -6,21 +6,23 @@ import com.javarush.caesarCipher.exception.CeasarException;
 import com.javarush.caesarCipher.model.ProcessingResult;
 import com.javarush.caesarCipher.service.FileService;
 import com.javarush.caesarCipher.service.ValidationService;
-
 import java.sql.SQLOutput;
 import java.util.Scanner;
 
 /**
  *  Проект модуля 1 - точка входа
+ *
+ *  Путь к исходному файлу: E:\Java\Tasks\module 1\File for Encode.txt
+ *  Путь к директории выходного файла: E:\Java\Tasks\module 1\Results\result.txt
  */
 public class CaesarCipherApp {
 
-    // todo: поля класса - зависимости
-    private final CeasarCoder ceasarCoder;
-    private final FileService fileService;
-    private final Scanner scanner;
 
-    // todo: конструктор - инициализация зависимостей
+    private static CeasarCoder ceasarCoder = new CeasarCoder(new ValidationService());
+    private static FileService fileService = new FileService();
+    private static Scanner scanner = new Scanner(System.in);
+
+
     public CaesarCipherApp(CeasarCoder ceasarCoder, FileService fileService, Scanner scanner) {
         this.ceasarCoder = ceasarCoder;
         this.fileService = fileService;
@@ -28,10 +30,10 @@ public class CaesarCipherApp {
     }
 
     static void main() {
-        run();
+        CaesarCipherApp.run();
     }
 
-    void run() {
+    static void run() {
 
         CaesarCipherApp app = new CaesarCipherApp(ceasarCoder, fileService, scanner);
 
@@ -39,7 +41,9 @@ public class CaesarCipherApp {
         printWelcomeMessage();
 
         // 2. Меню в виде бесконечного цикла*
-        while(true) {
+        boolean isOn = true;
+        while(isOn) {
+
             showMainMenu();
             String choice = scanner.nextLine();
 
@@ -60,6 +64,7 @@ public class CaesarCipherApp {
 
                 case "0":
                     System.out.println("\nДо свидания!");
+                    isOn = false;
                     break;
 
                 default:
@@ -68,13 +73,13 @@ public class CaesarCipherApp {
         }
     }
 
-    private void printWelcomeMessage() {
-        // todo: красивое приветствие с названием приложения
+    private static void printWelcomeMessage() {
+
         System.out.println("Шифр Цезаря. Версия 1.0");
     }
 
-    private void showMainMenu(){
-        // todo: отобразить меню с вариантами действий
+    private static void showMainMenu(){
+
         System.out.println("Главное меню:");
         System.out.println("1 - Закодировать текст");
         System.out.println("2 - Декодировать текст");
@@ -83,8 +88,8 @@ public class CaesarCipherApp {
         System.out.print("Выберите действие: ");
     }
 
-    private void processEncodeFile() {
-        // todo: обработка кодирования файла
+    private static void processEncodeFile() {
+
         // 1. Получить пути файлов и шифр
         // 2. Прочитать исходный файл
         // 3. Закодировать текст
@@ -107,13 +112,13 @@ public class CaesarCipherApp {
 
     }
 
-    private int ceasarOffsetKey() {
+    private static int ceasarOffsetKey() {
         System.out.print("Введите ключ для шифрования сообщения (число от 0 до 76): ");
         return scanner.nextInt();
     }
 
-    private void processDecodeFile() {
-        // todo: обработка декодирования файла
+    private static void processDecodeFile() {
+
 
         System.out.println("Декодирование файла:");
         try {
@@ -139,28 +144,31 @@ public class CaesarCipherApp {
 
     // проектирование методов
 
-    private String getInputFilePath(){
+    private static String getInputFilePath(){
         // запрос пути исходного файла
         System.out.println("Введите путь к файлу с сообщением, которое необходимо закодировать");
+        scanner.nextLine();
         return scanner.nextLine();
     }
 
-    private String getOutputFilePath(){
+    private static String getOutputFilePath(){
         // запрос пути для записи результата
         System.out.println("Введите путь к файлу, куда нужно записать закодированное сообщение");
         return scanner.nextLine();
     }
 
-    private void displaySuccessResult(ProcessingResult result, String inputFile, String outputFile){
+    private static void displaySuccessResult(ProcessingResult result, String inputFile, String outputFile){
         // todo: вывод успешного результата
+        System.out.println("Сообщение из файла по адресу " + inputFile + " \nуспешно записано в файл по адресу " + outputFile);
+        System.out.println("\nПревью результата записи: " + result.getOutputPreview());
     }
 
-    private void displayError(String message){
+    private static void displayError(String message){
         // todo: вывод сообщения об ошибке
     }
 
-    private void showAlphabet(){
-        // todo: вывод алфавита по запросу
+    private static void showAlphabet(){
+
         System.out.println("Список символов, подходящих для кодирования:");
         for (int i = 0; i < Alphabet.CEASAR_TO_TEXT.size(); i++) {
             for (int j = 0; j < 10; j++) {
@@ -169,8 +177,8 @@ public class CaesarCipherApp {
         }
     }
 
-    private String getOutputFromResult(ProcessingResult result) {
-        String outputResult = String.valueOf(result);
+    private static String getOutputFromResult(ProcessingResult result) {
+        String outputResult = result.getOutputMessage();
 
         return outputResult;
     }

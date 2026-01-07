@@ -44,7 +44,7 @@ public class CeasarCoder {
         String encoded = result.toString();
 
         // 6. Вернуть ProcessingResult
-        return new ProcessingResult(true, "Текст успешно закодирован", getPreview(text), getPreview(encoded));
+        return new ProcessingResult(true, "Текст успешно закодирован", getPreview(text), getPreview(encoded), encoded);
 
     }
 
@@ -75,7 +75,7 @@ public class CeasarCoder {
 
         // 6. Вернуть ProcessingResult
         String decoded = result.toString();
-        return new ProcessingResult(true, "Код успешно декодирован", getPreview(ceasarCode), getPreview(decoded));
+        return new ProcessingResult(true, "Код успешно декодирован", getPreview(ceasarCode), getPreview(decoded), decoded);
 
     }
 

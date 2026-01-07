@@ -6,12 +6,14 @@ public class ProcessingResult {
     private final String message;           // сообщение для пользователя
     private final String inputPreview;      // что на входе
     private final String outputPreview;     // что на выходе
+    private final String outputMessage;     // что на выходе
 
-    public ProcessingResult(boolean success, String message, String inputPreview, String outputPreview) {
+    public ProcessingResult(boolean success, String message, String inputPreview, String outputPreview, String outputMessage) {
         this.success = success;
         this.message = message;
         this.inputPreview = inputPreview;
         this.outputPreview = outputPreview;
+        this.outputMessage = outputMessage;
     }
 
     public boolean isSuccess() {
@@ -27,4 +29,8 @@ public class ProcessingResult {
     public String getOutputPreview() {
         return outputPreview;
     }
+
+    public String getOutputMessage() { return outputMessage; }
+
+
 }
