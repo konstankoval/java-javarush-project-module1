@@ -33,21 +33,18 @@ public class CeasarCoder {
 
         for (char element : charArray){
             if(((Alphabet.CEASAR_TO_TEXT.get(element))+codeForEncode) > Alphabet.CEASAR_TO_TEXT.size()){
-                intArray.add(((Alphabet.CEASAR_TO_TEXT.get(element))+codeForEncode) - (Alphabet.CEASAR_TO_TEXT.size()));
-            } else intArray.add((Alphabet.CEASAR_TO_TEXT.get(element))+codeForEncode);
+                intArray.add(((Alphabet.CEASAR_TO_TEXT.get(element)) + codeForEncode) - (Alphabet.CEASAR_TO_TEXT.size()));
+            } else intArray.add((Alphabet.CEASAR_TO_TEXT.get(element)) + codeForEncode);
         }
 
         for (int element : intArray){
             result.append(Alphabet.TEXT_TO_CEASAR.get(element));
         }
 
-
-
-
         String encoded = result.toString();
 
-            // 6. Вернуть ProcessingResult
-            return new ProcessingResult(true, "Текст успешно закодирован", getPreview(text), getPreview(encoded));
+        // 6. Вернуть ProcessingResult
+        return new ProcessingResult(true, "Текст успешно закодирован", getPreview(text), getPreview(encoded));
 
     }
 
@@ -57,23 +54,29 @@ public class CeasarCoder {
         validationService.validateCeasarCode(ceasarCode, codeForDecode);
 
         // 2. Разбить на отдельные символы
+        String upperText = ceasarCode.toUpperCase();
         StringBuilder result = new StringBuilder();
-        String[] symbols = ceasarCode.trim().split(" "); // ВОЗМОЖНО НУЖНО ИЗМЕНИТЬ!
 
         // 3. Найти новый символ для каждого символа
         // 4. Обработать разделитель слов
         // 5. Собрать результат с пробелами
-        for (String symbol : symbols) {
-            if (Alphabet.CEASAR_TO_TEXT.containsKey(symbol)) {
-                result.append(Alphabet.TEXT_TO_CEASAR.get(symbol)); // ВОЗМОЖНО НУЖНО ИЗМЕНИТЬ!
-            } else if (symbol.equals("/")) {
-                result.append(" ");
-            }
+        char[] charArray = upperText.toCharArray();
+        List<Integer> intArray = new ArrayList<>(ceasarCode.length());
+
+        for (char element : charArray){
+            if(((Alphabet.CEASAR_TO_TEXT.get(element)) - codeForDecode) < 1){
+                intArray.add((Alphabet.CEASAR_TO_TEXT.size()) - (codeForDecode - (Alphabet.CEASAR_TO_TEXT.get(element))));
+            } else intArray.add((Alphabet.CEASAR_TO_TEXT.get(element)) - codeForDecode);
         }
 
-        // 6. Вернуть ProcessingResult
-        String decoded = result.toString();
-        return new ProcessingResult(true, "Код успешно декодирован", getPreview(ceasarCode), getPreview(decoded));
+        for (int element : intArray) {
+            result.append(Alphabet.TEXT_TO_CEASAR.get(element));
+        }
+
+            // 6. Вернуть ProcessingResult
+            String decoded = result.toString();
+            return new ProcessingResult(true, "Код успешно декодирован", getPreview(ceasarCode), getPreview(decoded));
+
     }
 
     public String getPreview(String text) {
