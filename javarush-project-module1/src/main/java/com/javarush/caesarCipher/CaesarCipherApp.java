@@ -7,6 +7,7 @@ import com.javarush.caesarCipher.model.ProcessingResult;
 import com.javarush.caesarCipher.service.FileService;
 import com.javarush.caesarCipher.service.ValidationService;
 import java.sql.SQLOutput;
+import java.util.Map;
 import java.util.Scanner;
 
 /**
@@ -146,7 +147,7 @@ public class CaesarCipherApp {
 
     private static String getInputFilePath(){
         // запрос пути исходного файла
-        System.out.println("Введите путь к файлу с сообщением, которое необходимо закодировать");
+        System.out.println("Введите путь к файлу с исходным сообщением");
         scanner.nextLine();
         return scanner.nextLine();
     }
@@ -169,13 +170,17 @@ public class CaesarCipherApp {
 
     private static void showAlphabet(){
 
-        System.out.println("Список символов, подходящих для кодирования:");
-        for (int i = 0; i < Alphabet.CEASAR_TO_TEXT.size(); i++) {
-            for (int j = 0; j < 10; j++) {
-                System.out.print(" [" + Alphabet.CEASAR_TO_TEXT.get(i) + "] ");
+        System.out.println("\nСписок символов, подходящих для кодирования:");
+        for (int i = 1; i <= Alphabet.TEXT_TO_CEASAR.size(); i++) {
+                System.out.print(" [" + Alphabet.TEXT_TO_CEASAR.get(i) + "] ");
+                if (i % 10 == 0){
+                    System.out.println();
+                }
             }
+        System.out.println("\n");
+
         }
-    }
+
 
     private static String getOutputFromResult(ProcessingResult result) {
         String outputResult = result.getOutputMessage();
