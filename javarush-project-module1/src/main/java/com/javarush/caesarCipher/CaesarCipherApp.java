@@ -3,6 +3,7 @@ package com.javarush.caesarCipher;
 import com.javarush.caesarCipher.core.Alphabet;
 import com.javarush.caesarCipher.core.CeasarCoder;
 import com.javarush.caesarCipher.exception.CeasarException;
+import com.javarush.caesarCipher.exception.CeasarRunTimeException;
 import com.javarush.caesarCipher.model.ProcessingResult;
 import com.javarush.caesarCipher.service.FileService;
 import com.javarush.caesarCipher.service.ValidationService;
@@ -114,8 +115,21 @@ public class CaesarCipherApp {
     }
 
     private static int ceasarOffsetKey() {
+        int code = 0;
         System.out.print("Введите ключ для шифрования сообщения (число от 0 до 76): ");
-        return scanner.nextInt();
+        if (!scanner.hasNextInt()){
+            System.out.println("Введено не целое число. Попробуйте снова.\n");
+            scanner.nextLine();
+            ceasarOffsetKey();
+        } else {
+            code = scanner.nextInt();
+            if (code < 0) {
+                System.out.println("Число не должно быть отрицательным. Попробуйте снова.\n");
+                scanner.nextLine();
+                ceasarOffsetKey();
+            }
+        }
+        return code;
     }
 
     private static void processDecodeFile() {
@@ -166,6 +180,8 @@ public class CaesarCipherApp {
 
     private static void displayError(String message){
         // todo: вывод сообщения об ошибке
+        System.out.println("Сообщение об ошибке: " + message);
+
     }
 
     private static void showAlphabet(){

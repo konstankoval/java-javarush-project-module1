@@ -16,12 +16,12 @@ public class FileService {
 
             // 2. Проверить существование файла
             if (!Files.exists(path)) {
-                throw new CeasarException("Файл не найден " + filePath);
+                throw new CeasarException("Файл [" + filePath + "] не найден!" );
             }
 
             // 3. Проверить права на чтение
             if (!Files.isReadable(path)) {
-                throw new CeasarException("Нет прав на чтение файла " + filePath);
+                throw new CeasarException("Нет прав на чтение файла [" + filePath + "]!");
             }
 
             return Files.readString(path);
