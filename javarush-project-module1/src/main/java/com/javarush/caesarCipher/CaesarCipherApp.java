@@ -7,6 +7,9 @@ import com.javarush.caesarCipher.exception.CeasarRunTimeException;
 import com.javarush.caesarCipher.model.ProcessingResult;
 import com.javarush.caesarCipher.service.FileService;
 import com.javarush.caesarCipher.service.ValidationService;
+
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.sql.SQLOutput;
 import java.util.Map;
 import java.util.Scanner;
@@ -97,7 +100,7 @@ public class CaesarCipherApp {
         // 3. Закодировать текст
         // 4. Записать результат
         // 5. Сообщить об успешном результате
-        System.out.println("Кодирование файла:");
+        System.out.println("\nКодирование файла:");
         try {
             int codeForEncode = ceasarOffsetKey();
             String inputFile = getInputFilePath();
@@ -116,15 +119,20 @@ public class CaesarCipherApp {
 
     private static int ceasarOffsetKey() {
         int code = 0;
-        System.out.print("Введите ключ для шифрования сообщения (число от 0 до 76): ");
+
+        System.out.print("\n\nВведите ключ для шифрования сообщения (целое число от 0 до 76): ");
         if (!scanner.hasNextInt()){
-            System.out.println("Введено не целое число. Попробуйте снова.\n");
+            System.out.println("Некорректный ввод. Попробуйте снова.\n");
             scanner.nextLine();
             ceasarOffsetKey();
         } else {
             code = scanner.nextInt();
             if (code < 0) {
                 System.out.println("Число не должно быть отрицательным. Попробуйте снова.\n");
+                scanner.nextLine();
+                ceasarOffsetKey();
+            } else if (code > 76) {
+                System.out.println("Число не должно быть больше 76. Попробуйте снова.\n");
                 scanner.nextLine();
                 ceasarOffsetKey();
             }
@@ -135,7 +143,7 @@ public class CaesarCipherApp {
     private static void processDecodeFile() {
 
 
-        System.out.println("Декодирование файла:");
+        System.out.println("\nДекодирование файла:");
         try {
             // 1. Получить пути файлов и код для дешифровки
             int codeForDecode = ceasarOffsetKey();
@@ -174,13 +182,16 @@ public class CaesarCipherApp {
 
     private static void displaySuccessResult(ProcessingResult result, String inputFile, String outputFile){
         // todo: вывод успешного результата
-        System.out.println("Сообщение из файла по адресу " + inputFile + " \nуспешно записано в файл по адресу " + outputFile);
-        System.out.println("\nПревью результата записи: " + result.getOutputPreview());
+        Path filePath = Paths.get(outputFile);
+        Path outputFilePath = filePath.toAbsolutePath();
+
+        System.out.println("Сообщение из файла " + inputFile + " \nуспешно записано в файл по адресу " + outputFilePath.toString());
+        System.out.println("\nПромежуточный результат: " + result.getOutputPreview() + "\n\n");
     }
 
     private static void displayError(String message){
         // todo: вывод сообщения об ошибке
-        System.out.println("Сообщение об ошибке: " + message);
+        System.out.println("Сообщение об ошибке: " + message + "\n\n");
 
     }
 
