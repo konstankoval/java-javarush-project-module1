@@ -191,7 +191,7 @@ public class CaesarCipherApp {
 
     private static void displayError(String message){
         // todo: вывод сообщения об ошибке
-        System.out.println("Сообщение об ошибке: " + message + "\n\n");
+        System.out.println("\nВнимание! Ошибка!\nСообщение об ошибке: " + message + "\n\n");
 
     }
 
