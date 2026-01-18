@@ -4,23 +4,13 @@ package com.javarush.caesarCipher.exception;
 
 public class CeasarException extends Exception {
     public CeasarException(String message) {
-        // todo: вызвать конструктор родителя с сообщением
         super(message);
-//        System.out.println("\nВнимание! Ошибка! \nСработал конструктор [CeasarException]");
-//        System.out.println(message);
     }
 
     public CeasarException(String message, Throwable cause) {
-        // todo: вызвать конструктор родителя с сообщением и причиной
-        super(message);
-//        System.out.println("\nВнимание! Ошибка! \nСработал конструктор [CeasarException]");
-        System.out.println(message + cause);
+        super(message+cause);
     }
 }
 
 
 
-// Можно кидать сюда все возможные ошибки, которые могут возникнуть по нашему мнению:
-// Слишком большой файл - исключение
-// Файл пуст - исключение
-// в файле не текст - исключение и т.д.

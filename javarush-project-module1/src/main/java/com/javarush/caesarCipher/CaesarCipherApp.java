@@ -10,15 +10,11 @@ import com.javarush.caesarCipher.service.ValidationService;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.sql.SQLOutput;
-import java.util.Map;
 import java.util.Scanner;
 
 /**
  *  Проект модуля 1 - точка входа
- *
- *  Путь к исходному файлу: E:\Java\Tasks\module 1\File for Encode.txt
- *  Путь к директории выходного файла: E:\Java\Tasks\module 1\Results\result.txt
+
  */
 public class CaesarCipherApp {
 
@@ -29,9 +25,9 @@ public class CaesarCipherApp {
 
 
     public CaesarCipherApp(CeasarCoder ceasarCoder, FileService fileService, Scanner scanner) {
-        this.ceasarCoder = ceasarCoder;
-        this.fileService = fileService;
-        this.scanner = scanner;
+        CaesarCipherApp.ceasarCoder = ceasarCoder;
+        CaesarCipherApp.fileService = fileService;
+        CaesarCipherApp.scanner = scanner;
     }
 
     static void main() {
@@ -40,7 +36,6 @@ public class CaesarCipherApp {
 
     static void run() {
 
-        CaesarCipherApp app = new CaesarCipherApp(ceasarCoder, fileService, scanner);
 
         // 1. Вывести приветстиве
         printWelcomeMessage();
@@ -111,7 +106,7 @@ public class CaesarCipherApp {
             fileService.writeFile(getOutputFromResult(result), outputFile);
 
             displaySuccessResult(result, inputFile, outputFile);
-        } catch (CeasarException e) {
+        } catch (CeasarException | CeasarRunTimeException e) {
             displayError(e.getMessage());
         }
 
@@ -159,7 +154,7 @@ public class CaesarCipherApp {
 
             // 4. Сообщить об успешном результате
             displaySuccessResult(result, inputFile, outputFile);
-        } catch (CeasarException e) {
+        } catch (CeasarException | CeasarRunTimeException e) {
             displayError(e.getMessage());
         }
 
@@ -181,18 +176,15 @@ public class CaesarCipherApp {
     }
 
     private static void displaySuccessResult(ProcessingResult result, String inputFile, String outputFile){
-        // todo: вывод успешного результата
         Path filePath = Paths.get(outputFile);
         Path outputFilePath = filePath.toAbsolutePath();
 
-        System.out.println("Сообщение из файла " + inputFile + " \nуспешно записано в файл по адресу " + outputFilePath.toString());
+        System.out.println("Сообщение из файла " + inputFile + " \nуспешно записано в файл по адресу " + outputFilePath);
         System.out.println("\nПромежуточный результат: " + result.getOutputPreview() + "\n\n");
     }
 
     private static void displayError(String message){
-        // todo: вывод сообщения об ошибке
         System.out.println("\nВнимание! Ошибка!\nСообщение об ошибке: " + message + "\n\n");
-
     }
 
     private static void showAlphabet(){
@@ -205,14 +197,11 @@ public class CaesarCipherApp {
                 }
             }
         System.out.println("\n");
-
         }
 
 
     private static String getOutputFromResult(ProcessingResult result) {
-        String outputResult = result.getOutputMessage();
-
-        return outputResult;
+        return result.getOutputMessage();
     }
 
 

@@ -16,15 +16,13 @@ public class ProcessingResult {
         this.outputMessage = outputMessage;
     }
 
-    public boolean isSuccess() {
-        return success;
-    }
-
-    public String getMessage() {return message; }
-
-    public String getInputPreview() {
-        return inputPreview;
-    }
+//    public boolean isSuccess() {
+//        return success;
+//    }
+//    public String getMessage() {return message; }
+//    public String getInputPreview() {
+//        return inputPreview;
+//    }
 
     public String getOutputPreview() {
         return outputPreview;

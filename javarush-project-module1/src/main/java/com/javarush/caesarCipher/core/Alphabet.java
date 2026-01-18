@@ -9,10 +9,9 @@ public class Alphabet {
     public static final Map<Character, Integer> CEASAR_TO_TEXT;
 
     static {
-        // todo: инициализировать алфавит шифра Цезаря
+
         // создать временный hashMap
         Map<Integer, Character> textToCeasar = new HashMap<>();
-        Map<Character, Integer> ceasarToText = new HashMap<>();
 
         textToCeasar.put(1, 'А');
         textToCeasar.put(2, 'Б');
@@ -93,6 +92,7 @@ public class Alphabet {
         textToCeasar.put(77, '0');
 
         // создать обратное отображение
+        Map<Character, Integer> ceasarToText = new HashMap<>();
         for (Map.Entry<Integer, Character> entry : textToCeasar.entrySet()) {
             ceasarToText.put(entry.getValue(), entry.getKey());
         }

@@ -13,12 +13,12 @@ public class CeasarCoder {
 
 
     public CeasarCoder (ValidationService validationService) {
-        // todo: инициализировать ValidationService
+
         this.validationService = validationService;
     }
 
     public ProcessingResult encodeText (String text, int codeForEncode) throws CeasarException {
-        // todo: кодирование текста в шифр Цезаря
+
         // 1. Валидировать входной текст
         validationService.validateTextForEncoding(text, codeForEncode);
 
@@ -49,7 +49,7 @@ public class CeasarCoder {
     }
 
     public ProcessingResult decodeText (String ceasarCode, int codeForDecode) throws CeasarException {
-        // todo: декодирование кода Цезаря в текст
+
         // 1. Валидировать код Цезаря
         validationService.validateCeasarCode(ceasarCode, codeForDecode);
 
@@ -80,9 +80,7 @@ public class CeasarCoder {
     }
 
     public String getPreview(String text) {
-        // todo: создание превью текста
-        // 1. если текст короткий - вернуть как есть
-        // 2. если текст длинный - обрезать и добавить "..."
+
         if (text.length() <= 100) {
             return text;
         }
